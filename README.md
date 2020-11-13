@@ -1,5 +1,5 @@
 <h1>🤳 KSP</h1>
-<img height="512" src=".github/icon.png" align="right" alt="KSP">
+<img height="250" src=".github/icon.png" align="right" alt="KSP">
 
 KSP is an open-source school website infrastructure made for training purposes only. This repository is currently open for contributions (issues and pull requests).
 
