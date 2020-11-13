@@ -3,7 +3,9 @@
 package com.gabriel.kspanel.project.rest
 
 import com.gabriel.kspanel.project.rest.database.DatabaseService
+import com.gabriel.kspanel.project.rest.routes.bracketRoutes
 import com.gabriel.kspanel.project.rest.routes.studentRoutes
+import com.gabriel.kspanel.project.rest.services.BracketService
 import com.gabriel.kspanel.project.rest.services.StudentService
 import io.ktor.application.*
 import io.ktor.auth.*
@@ -53,9 +55,11 @@ fun Application.module() {
     }
 
     val studentService = StudentService()
+    val bracketService = BracketService()
 
     routing {
         studentRoutes(environment.config, studentService)
+        bracketRoutes(environment.config, bracketService)
     }
 }
 

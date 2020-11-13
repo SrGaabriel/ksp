@@ -23,7 +23,7 @@ data class StudentCreateDTO(
 
 @Serializable
 data class StudentUpdateDTO(
-    val name: String
+    val name: String?
 )
 
 @Serializable

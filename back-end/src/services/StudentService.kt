@@ -15,7 +15,7 @@ class StudentService {
 
     suspend fun updateById(id: Int, update: StudentUpdateDTO) = newSuspendedTransaction {
         findById(id)?.apply {
-            name = update.name
+            name = update.name ?: name
         }
     }
 
