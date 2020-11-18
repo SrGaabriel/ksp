@@ -32,6 +32,7 @@ dependencies {
     implementation("io.ktor:ktor-server-jetty:$ktorVersion")
     implementation("ch.qos.logback:logback-classic:$logbackVersion")
     implementation("io.ktor:ktor-server-core:$ktorVersion")
+    implementation("io.ktor:ktor-auth-jwt:$ktorVersion")
     implementation("io.ktor:ktor-locations:$ktorVersion")
     implementation("io.ktor:ktor-server-host-common:$ktorVersion")
     implementation("io.ktor:ktor-auth:$ktorVersion")
@@ -42,6 +43,8 @@ dependencies {
     implementation("io.ktor:ktor-serialization:$ktorVersion")
 
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.1.0")
+    implementation("com.github.ben-manes.caffeine:caffeine:2.8.6")
+    implementation("com.auth0:java-jwt:3.11.0")
 
     implementation("org.jetbrains.exposed:exposed-core:$exposedVersion")
     implementation("org.jetbrains.exposed:exposed-dao:$exposedVersion")

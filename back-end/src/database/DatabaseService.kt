@@ -1,7 +1,7 @@
 package com.gabriel.kspanel.project.rest.database
 
+import com.gabriel.kspanel.project.rest.database.tables.AccountTable
 import com.gabriel.kspanel.project.rest.database.tables.BracketTable
-import com.gabriel.kspanel.project.rest.database.tables.StudentTable
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.config.*
@@ -24,7 +24,7 @@ class DatabaseService(private val config: ApplicationConfig) {
     }
 
     fun createTables() = transaction {
-        SchemaUtils.createMissingTablesAndColumns(StudentTable, BracketTable)
+        SchemaUtils.createMissingTablesAndColumns(AccountTable, BracketTable)
     }
 
     private fun value(name: String) = config.property(name).getString()

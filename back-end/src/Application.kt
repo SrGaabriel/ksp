@@ -2,13 +2,16 @@
 
 package com.gabriel.kspanel.project.rest
 
+import com.gabriel.kspanel.project.rest.authentication.auth.AuthenticationService
+import com.gabriel.kspanel.project.rest.authentication.auth.route.authenticationRoutes
 import com.gabriel.kspanel.project.rest.database.DatabaseService
+import com.gabriel.kspanel.project.rest.routes.accountRoutes
 import com.gabriel.kspanel.project.rest.routes.bracketRoutes
-import com.gabriel.kspanel.project.rest.routes.studentRoutes
+import com.gabriel.kspanel.project.rest.services.AccountService
 import com.gabriel.kspanel.project.rest.services.BracketService
-import com.gabriel.kspanel.project.rest.services.StudentService
 import io.ktor.application.*
 import io.ktor.auth.*
+import io.ktor.auth.jwt.*
 import io.ktor.features.*
 import io.ktor.http.*
 import io.ktor.locations.*
@@ -51,15 +54,35 @@ fun Application.module() {
         it.createTables()
     }
 
-    authentication {
-    }
-
-    val studentService = StudentService()
+    val accountService = AccountService()
     val bracketService = BracketService()
 
+    authentication {
+        jwt {
+            validate { jwt ->
+               UserIdPrincipal(jwt.payload.subject)
+            }
+        }
+    }
+
+    val authenticationService = AuthenticationService(accountService)
+
     routing {
-        studentRoutes(environment.config, studentService)
-        bracketRoutes(environment.config, bracketService)
+        setupRoutes(
+            accountService = accountService,
+            bracketService = bracketService,
+            authenticationService = authenticationService
+        )
     }
 }
 
+fun Routing.setupRoutes(
+    accountService: AccountService,
+    bracketService: BracketService,
+    authenticationService: AuthenticationService
+) = authenticate {
+    accountRoutes(accountService)
+    bracketRoutes(bracketService)
+
+    authenticationRoutes(authenticationService)
+}

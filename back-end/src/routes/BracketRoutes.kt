@@ -5,7 +5,6 @@ package com.gabriel.kspanel.project.rest.routes
 import com.gabriel.kspanel.project.rest.authentication.authenticated
 import com.gabriel.kspanel.project.rest.services.BracketService
 import io.ktor.application.*
-import io.ktor.config.*
 import io.ktor.http.*
 import io.ktor.locations.*
 import io.ktor.request.*
@@ -14,7 +13,7 @@ import io.ktor.routing.*
 import io.ktor.util.*
 
 @OptIn(KtorExperimentalAPI::class, KtorExperimentalLocationsAPI::class)
-fun Route.bracketRoutes(config: ApplicationConfig, bracketService: BracketService) = authenticated(config) {
+fun Route.bracketRoutes(bracketService: BracketService) = authenticated {
     put<Brackets.Id> { (id) ->
         when (val bracket = bracketService.updateById(id, call.receive())) {
             null -> call.respond(HttpStatusCode.NotFound)
